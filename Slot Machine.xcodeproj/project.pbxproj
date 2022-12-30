@@ -28,6 +28,7 @@
 		B02F15F6295E80AF008358DB /* Extensioons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F15F5295E80AF008358DB /* Extensioons.swift */; };
 		B02F15F8295E8935008358DB /* ReelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F15F7295E8935008358DB /* ReelView.swift */; };
 		B04D5023295EA9A900E8B934 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04D5022295EA9A900E8B934 /* InfoView.swift */; };
+		B04D5025295EE34600E8B934 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04D5024295EE34600E8B934 /* ModalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		B02F15F5295E80AF008358DB /* Extensioons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensioons.swift; sourceTree = "<group>"; };
 		B02F15F7295E8935008358DB /* ReelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelView.swift; sourceTree = "<group>"; };
 		B04D5022295EA9A900E8B934 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		B04D5024295EE34600E8B934 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				B02F15F1295E7655008358DB /* LogoView.swift */,
 				B02F15F7295E8935008358DB /* ReelView.swift */,
 				B04D5022295EA9A900E8B934 /* InfoView.swift */,
+				B04D5024295EE34600E8B934 /* ModalView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			files = (
 				B02F15F8295E8935008358DB /* ReelView.swift in Sources */,
 				B02F15F4295E767B008358DB /* Modifiers.swift in Sources */,
+				B04D5025295EE34600E8B934 /* ModalView.swift in Sources */,
 				B02F15A4295E50E9008358DB /* ContentView.swift in Sources */,
 				B02F15F2295E7655008358DB /* LogoView.swift in Sources */,
 				B02F15F6295E80AF008358DB /* Extensioons.swift in Sources */,

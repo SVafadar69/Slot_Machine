@@ -16,6 +16,10 @@ struct ContentView: View {
     @State private var betAmount: Int = 10
     @State private var reels: Array = [0, 1, 2]
     @State private var showingInfoView : Bool = false
+    @State private var isActiveBet10: Bool = true
+    @State private var isActiveBet20: Bool = false
+    @State private var showingModal: Bool = true
+    
     
     //MARK: FUNCTIONS
     
@@ -38,8 +42,6 @@ struct ContentView: View {
     func checkWinning() {
         if reels[0] == reels[1] && reels[0] == reels[2] {
             
-            
-            
             playerWins() //increasing coins by 10x
             //MARK: NEW HIGH SCORE
             if coins > highScore { //if coins increase from previous func
@@ -49,7 +51,7 @@ struct ContentView: View {
             
         } else {
             
-            //MARK: PLAYER LOSES
+            playerLoses() //decreasing coins  by betAmount
         }
     }
     
@@ -61,9 +63,31 @@ struct ContentView: View {
     func newHighScore() {
         highScore = coins
     }
+    //MARK: PLAYER LOSES
+    func playerLoses() {
+        coins -= betAmount
+    }
+    
+    func activateBet20 () {
+        betAmount = 20
+        isActiveBet20 = true
+        isActiveBet10 = false
+    }
+    
+    func activateBet10() {
+        betAmount = 10
+        isActiveBet10 = true
+        isActiveBet20 = false
+    }
     
     //MARK: GAME IS OVER
 
+    func gameOver() {
+        if coins <= 0 {
+            showingModal = true
+            coins = 100
+        }
+    }
 
     
     var body: some View {
@@ -145,6 +169,7 @@ struct ContentView: View {
                         
                         //MARK: CHECK WINNING FUNC
                         self.checkWinning()
+                        self.gameOver()
                     }) {
                         Image("gfx-spin") // button that has image gfx-spin
                             .renderingMode(.original)
@@ -164,11 +189,11 @@ struct ContentView: View {
                     
                     HStack(alignment: .center, spacing: 10){
                         Button(action: {
-                            print("Bet 10 coins")
+                            self.activateBet20()
                         }) {
-                            Text("10")
+                            Text("20")
                                 .fontWeight(.heavy)
-                                .foregroundColor(Color.yellow)
+                                .foregroundColor(isActiveBet20 ? Color.yellow : Color.white)
                                 .modifier(ShadowButtonModifier())
                             
                         }
@@ -183,7 +208,7 @@ struct ContentView: View {
                         )
                         Image("gfx-casino-chips")
                             .resizable()
-                            .opacity(1)
+                            .opacity(isActiveBet20 ? 1 : 0)
                             .scaledToFit()
                             .frame(height: 64)
                             .animation(.default)
@@ -195,18 +220,18 @@ struct ContentView: View {
                     HStack(alignment: .center, spacing: 10){
                         Image("gfx-casino-chips")
                             .resizable()
-                            .opacity(1)
+                            .opacity(isActiveBet10 ? 1 : 0) //will slide chips to respective amount
                             .scaledToFit()
                             .frame(height: 64)
                             .animation(.default)
                             .modifier(ShadowModifier())
                         
                         Button(action: {
-                            print("Bet 20 coins")
+                            self.activateBet10()
                         }) {
-                            Text("20")
+                            Text("10")
                                 .fontWeight(.heavy)
-                                .foregroundColor(Color.yellow)
+                                .foregroundColor(isActiveBet10 ? Color.yellow : Color.white) //if active, choose 1 color > other with :
                                 .modifier(ShadowButtonModifier())
                             
                         }
@@ -243,6 +268,12 @@ struct ContentView: View {
                 
                 .padding()
                 .frame(maxWidth: 720)
+                .blur(radius: $showingModal.wrappedValue ? 5 : 0, opaque: false) //if false, not blurred. else blurred
+            
+            //MARK: POPUP
+            if $showingModal.wrappedValue {
+               ModalView()
+            }
             
         }
         //MARK: ZSTACK
