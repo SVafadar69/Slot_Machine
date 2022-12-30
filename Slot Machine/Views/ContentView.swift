@@ -11,7 +11,7 @@ struct ContentView: View {
     
     let symbols = ["gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"]
     
-    @State private var highScore: Int = 0
+    @State private var highScore: Int = UserDefaults.standard.integer(forKey: "HighScore")
     @State private var coins: Int = 100
     @State private var betAmount: Int = 10
     @State private var reels: Array = [0, 1, 2]
@@ -19,7 +19,8 @@ struct ContentView: View {
     @State private var isActiveBet10: Bool = true
     @State private var isActiveBet20: Bool = false
     @State private var showingModal: Bool = false
-    
+    @State private var animatingSymbol: Bool = false
+    @State private var animatingModal : Bool = false
     
     //MARK: FUNCTIONS
     
@@ -62,6 +63,8 @@ struct ContentView: View {
     
     func newHighScore() {
         highScore = coins
+        
+        UserDefaults.standard.set(highScore, forKey: "HighScore") //storing high score to user defaults (local storage)
     }
     //MARK: PLAYER LOSES
     func playerLoses() {
@@ -89,7 +92,11 @@ struct ContentView: View {
         }
     }
     
-
+    func resetGame() {
+        UserDefaults.standard.set(0, forKey: "HighScore") //set user defaults to 0
+        highScore = 0
+        activateBet10() //return to default - coins += 10
+    }
 
     
     var body: some View {
@@ -139,6 +146,12 @@ struct ContentView: View {
                         Image(symbols[reels[0]]) //index symbols with int of reels
                             .resizable()
                             .modifier(ImageModifier())
+                            .opacity(animatingSymbol ? 1 : 0)
+                            .offset(y: animatingSymbol ? 0: -50)
+                            .animation(.easeOut( duration: Double.random(in: 0.5...1)))
+                            .onAppear(perform: {
+                                self.animatingSymbol.toggle()
+                            })
                     }
                     
                     //MARK: REEL #2
@@ -148,6 +161,13 @@ struct ContentView: View {
                             Image(symbols[reels[1]])
                                 .resizable()
                                 .modifier(ImageModifier())
+                                .opacity(animatingSymbol ? 1 : 0)
+                                .offset(y:
+                                            animatingSymbol ? 0: -50)
+                            .animation(.easeOut( duration: Double.random(in: 0.3...0.6)))
+                                .onAppear(perform: {
+                                    self.animatingSymbol.toggle()
+                                })
                         }
                         
                         Spacer()
@@ -159,15 +179,31 @@ struct ContentView: View {
                             Image(symbols[reels[2]])
                                 .resizable()
                                 .modifier(ImageModifier())
+                                .opacity(animatingSymbol ? 1 : 0)
+                                .offset(y: animatingSymbol ? 0: -50)
+                                .animation(.easeOut( duration: Double.random(in: 0.7...0.9)))
+                                .onAppear(perform: {
+                                    self.animatingSymbol.toggle()
+                                })
                         }
-                        
                         
                     }
                     .frame(maxWidth: 500)
                     //MARK: SPIN BUTTON
                     
+                    //MARK: SET THE DEFAULT STATE
+                    
                     Button(action: {
+                        withAnimation {
+                        self.animatingSymbol = false
+                        } //prevent animation when they are disappearing frmo screen
+                        
                         self.spinReels() //spiins the reels
+                        
+                        //MARK: TRIGGER ANIMATION
+                        withAnimation{
+                            self.animatingSymbol = true
+                        }
                         
                         //MARK: CHECK WINNING FUNC
                         self.checkWinning()
@@ -210,6 +246,7 @@ struct ContentView: View {
                         )
                         Image("gfx-casino-chips")
                             .resizable()
+                            .offset(x: isActiveBet20 ? 0 : 20)
                             .opacity(isActiveBet20 ? 1 : 0)
                             .scaledToFit()
                             .frame(height: 64)
@@ -222,6 +259,7 @@ struct ContentView: View {
                     HStack(alignment: .center, spacing: 10){
                         Image("gfx-casino-chips")
                             .resizable()
+                            .offset(x: isActiveBet10 ? 0 : 20)
                             .opacity(isActiveBet10 ? 1 : 0) //will slide chips to respective amount
                             .scaledToFit()
                             .frame(height: 64)
@@ -308,8 +346,12 @@ struct ContentView: View {
                                 .layoutPriority(1)
                             
                             Button(action: {
+                                resetGame() //set game - set user defaults to 0
+                                self.animatingModal = false
+                                self.activateBet10()
                                 self.showingModal = false
                                 self.coins = 100
+                                
                             }) {
                                 Text("New Game".uppercased()) //button with text new game
                                     .font(.system(.body, design: .rounded))
@@ -335,6 +377,12 @@ struct ContentView: View {
                         .background(Color.white)
                         .cornerRadius(20)
                         .shadow(color: Color("ColorTransparentBlack"), radius: 6, x: 0, y: 8)
+                        .opacity($animatingModal.wrappedValue ? 1 : 0)
+                        .offset(y: $animatingModal.wrappedValue ? 0: -100)
+                        .animation(Animation.spring(response: 0.6, dampingFraction: 1.0, blendDuration: 1.0))
+                        .onAppear(perform: {
+                            self.animatingModal = true
+                        })
                 }
                 
                 
