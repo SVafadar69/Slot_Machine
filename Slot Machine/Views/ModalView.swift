@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct ModalView: View {
-    
-    @State private var showingModal : Bool = false
+    @State private var showingModal: Bool = false
     @State private var coins: Int = 100
     
     var body: some View {
-        ZStack{
-            Color("ColorTransparentBlack").edgesIgnoringSafeArea(.all)
+
             
             //MARK: MODAL
             VStack(spacing: 0) {
@@ -55,22 +53,15 @@ struct ModalView: View {
                             .padding(.vertical, 8)
                             .frame(minWidth: 128)
                             .background(
-                            Capsule()
-                                .strokeBorder(lineWidth: 1.75)
-                                .foregroundColor((Color("Colorpink")))
+                                Capsule()
+                                    .strokeBorder(lineWidth: 1.75)
+                                    .foregroundColor((Color("Colorpink")))
                             ) //capsule with pink border around
                         
                     }
                 }
-                
-                Spacer()
-                
-            }.frame(minWidth: 280, idealWidth: 280, maxWidth: 320, minHeight: 260, idealHeight: 280, maxHeight: 320, alignment: .center)
-                .background(Color.white)
-                .cornerRadius(20)
-                .shadow(color: Color("ColorTransparentBlack"), radius: 6, x: 0, y: 8)
+            }
         }
-    }
 }
 
 struct ModalView_Previews: PreviewProvider {
