@@ -11,6 +11,8 @@ struct ContentView: View {
     
     let symbols = ["gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"]
     
+    let haptics = UINotificationFeedbackGenerator()
+    
     @State private var highScore: Int = UserDefaults.standard.integer(forKey: "HighScore")
     @State private var coins: Int = 100
     @State private var betAmount: Int = 10
@@ -31,9 +33,13 @@ struct ContentView: View {
         //reels[1] = Int.random(in: 0...symbols.count-1)
         //reels[2] = Int.random(in: 0...symbols.count-1)
         
+        
+        
         reels = reels.map({_ in
             Int.random(in: 0...symbols.count-1) //returns random array of 0-2 between
         })
+        playSound(sound: "spin", type: "mp3") //plays spin sound
+        haptics.notificationOccurred(.success) //notification feedback haptic
     }
     
     
@@ -48,6 +54,8 @@ struct ContentView: View {
             if coins > highScore { //if coins increase from previous func
                 //condition is checked first
                 newHighScore()
+            } else {
+                playSound(sound: "win", type: "mp3") //if player wins but no new high score
             }
             
         } else {
@@ -65,6 +73,8 @@ struct ContentView: View {
         highScore = coins
         
         UserDefaults.standard.set(highScore, forKey: "HighScore") //storing high score to user defaults (local storage)
+        
+        playSound(sound: "high-score", type: "mp3")
     }
     //MARK: PLAYER LOSES
     func playerLoses() {
@@ -75,12 +85,16 @@ struct ContentView: View {
         betAmount = 20
         isActiveBet20 = true
         isActiveBet10 = false
+        playSound(sound: "casino-chips", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     func activateBet10() {
         betAmount = 10
         isActiveBet10 = true
         isActiveBet20 = false
+        playSound(sound: "casino-chips", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     //MARK: GAME IS OVER
@@ -90,6 +104,7 @@ struct ContentView: View {
             showingModal = true
             coins = 100
         }
+        playSound(sound: "game-over", type: "mp3") //playing sounds of sound file
     }
     
     func resetGame() {
@@ -151,6 +166,7 @@ struct ContentView: View {
                             .animation(.easeOut( duration: Double.random(in: 0.5...1)))
                             .onAppear(perform: {
                                 self.animatingSymbol.toggle()
+                                playSound(sound: "riseup", type: "mp3")
                             })
                     }
                     
@@ -194,11 +210,11 @@ struct ContentView: View {
                     //MARK: SET THE DEFAULT STATE
                     
                     Button(action: {
-                        withAnimation {
-                        self.animatingSymbol = false
-                        } //prevent animation when they are disappearing frmo screen
+//                        withAnimation {
+//                        self.animatingSymbol = false
+//                        } //prevent animation when they are disappearing frmo screen
                         
-                        self.spinReels() //spiins the reels
+                        self.spinReels() //spins the reels
                         
                         //MARK: TRIGGER ANIMATION
                         withAnimation{

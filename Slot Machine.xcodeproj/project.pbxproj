@@ -28,6 +28,7 @@
 		B02F15F6295E80AF008358DB /* Extensioons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F15F5295E80AF008358DB /* Extensioons.swift */; };
 		B02F15F8295E8935008358DB /* ReelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F15F7295E8935008358DB /* ReelView.swift */; };
 		B045DF35295EEF6D000DC4AF /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B045DF34295EEF6D000DC4AF /* ModalView.swift */; };
+		B045DF37295EF90F000DC4AF /* Playsound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B045DF36295EF90F000DC4AF /* Playsound.swift */; };
 		B04D5023295EA9A900E8B934 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04D5022295EA9A900E8B934 /* InfoView.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		B02F15F5295E80AF008358DB /* Extensioons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensioons.swift; sourceTree = "<group>"; };
 		B02F15F7295E8935008358DB /* ReelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelView.swift; sourceTree = "<group>"; };
 		B045DF34295EEF6D000DC4AF /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		B045DF36295EF90F000DC4AF /* Playsound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playsound.swift; sourceTree = "<group>"; };
 		B04D5022295EA9A900E8B934 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +196,7 @@
 			children = (
 				B02F15F3295E767B008358DB /* Modifiers.swift */,
 				B02F15F5295E80AF008358DB /* Extensioons.swift */,
+				B045DF36295EF90F000DC4AF /* Playsound.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				B02F15F6295E80AF008358DB /* Extensioons.swift in Sources */,
 				B02F15A2295E50E9008358DB /* Slot_MachineApp.swift in Sources */,
 				B04D5023295EA9A900E8B934 /* InfoView.swift in Sources */,
+				B045DF37295EF90F000DC4AF /* Playsound.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
