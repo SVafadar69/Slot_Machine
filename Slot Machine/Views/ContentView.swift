@@ -18,7 +18,7 @@ struct ContentView: View {
     @State private var showingInfoView : Bool = false
     @State private var isActiveBet10: Bool = true
     @State private var isActiveBet20: Bool = false
-    @State private var showingModal: Bool = true
+    @State private var showingModal: Bool = false
     
     
     //MARK: FUNCTIONS

@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ModalView: View {
+    
+    @State private var showingModal : Bool = false
+    @State private var coins: Int = 100
+    
     var body: some View {
         ZStack{
             Color("ColorTransparentBlack").edgesIgnoringSafeArea(.all)
@@ -16,9 +20,11 @@ struct ModalView: View {
             VStack(spacing: 0) {
                 //MARK: TITLE
                 
-                Text("Game Over")
+                Text("GAME OVER")
                     .font(.system(.title, design: .rounded))
+                    .padding()
                     .fontWeight(.heavy)
+                    .frame(minWidth: 0, maxWidth: .infinity)
                     .background(Color("Colorpink"))
                     .foregroundColor(Color.white)
                 
@@ -36,6 +42,25 @@ struct ModalView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color.gray)
                         .layoutPriority(1)
+                    
+                    Button(action: {
+                        self.showingModal = false
+                        self.coins = 100
+                    }) {
+                        Text("New Game".uppercased()) //button with text new game
+                            .font(.system(.body, design: .rounded))
+                            .fontWeight(.semibold)
+                            .accentColor(Color("Colorpink"))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .frame(minWidth: 128)
+                            .background(
+                            Capsule()
+                                .strokeBorder(lineWidth: 1.75)
+                                .foregroundColor((Color("Colorpink")))
+                            ) //capsule with pink border around
+                        
+                    }
                 }
                 
                 Spacer()
