@@ -23,10 +23,10 @@ struct InfoView: View {
                 Section(header: Text("About the application")) {
                     FormRowView(firstItem: "Application", secondItem: "Slot Machine")
                     FormRowView(firstItem: "Platforms", secondItem: "iPhone, iPad, Mac")
-                    FormRowView(firstItem: "Developer", secondItem: "John/Jane")
-                    FormRowView(firstItem: "Designer", secondItem: "Robert Petras")
+                    FormRowView(firstItem: "Developer", secondItem: "Steven Vafadar")
+                    FormRowView(firstItem: "Designer", secondItem: "Steven Vafadar")
                     FormRowView(firstItem: "Music", secondItem: "Hans Zimmer")
-                    FormRowView(firstItem: "Website", secondItem: "SwiftUIMasterclass.com")
+                    FormRowView(firstItem: "Website", secondItem: "www.github.com/SVafadar69?tab=repositories")
                     FormRowView(firstItem: "Copyright", secondItem: "2022 - rights non-existent")
                     FormRowView(firstItem: "Version", secondItem: "1.0.0")
                 }
